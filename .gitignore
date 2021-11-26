@@ -31,3 +31,6 @@ override.tf.json
 
 # Ignore .ova files
 *.ova
+
+# Ignore VOMDITE project folder
+**/workspace-home/*
