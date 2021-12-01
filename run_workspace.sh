@@ -84,7 +84,7 @@ sudo docker exec -ti $VOMDITE_CONTAINER ssh-keygen -f /home/project/terraform-fi
 
 # .- Install OVFTool
 printf "${YELLOW}[ $(date -Iseconds) ] [VOMDITE] Installing OVFTool on workspace... ${NC}\n"
-sudo docker exec -ti -u root $VOMDITE_CONTAINER /home/project/additional_software/VMware-ovftool-4.4.1-16812187-lin.x86_64.bundle --eulas-agreed
+sudo docker exec -ti -u root $VOMDITE_CONTAINER /home/project/addittional_software/VMware-ovftool-4.4.1-16812187-lin.x86_64.bundle --eulas-agreed
 
 # [ TERRAFORM EXECUTION ]
 printf "${YELLOW}[ $(date -Iseconds) ] [VOMDITE] Initialazing Terraform service... ${NC}\n"
