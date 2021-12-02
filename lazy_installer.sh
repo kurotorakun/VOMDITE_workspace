@@ -70,32 +70,32 @@ printf "${YELLOW}[ $(date -Iseconds) ] [VOMDITE] Waiting container to be loaded.
 sleep 30
 
 # .- Generate ssh keys on VOMDITE container ~/.ssh/
-printf "${YELLOW}[ $(date -Iseconds) ] [VOMDITE] Generating workspace SSH key pair... ${NC}\n"
-sudo docker exec -ti $VOMDITE_CONTAINER ssh-keygen
+# printf "${YELLOW}[ $(date -Iseconds) ] [VOMDITE] Generating workspace SSH key pair... ${NC}\n"
+# sudo docker exec -ti $VOMDITE_CONTAINER ssh-keygen
 
 # .- Clone VOMDITE repository
-printf "${YELLOW}[ $(date -Iseconds) ] [VOMDITE] Downloading VOMDITE... ${NC}\n"
-sudo docker exec -ti $VOMDITE_CONTAINER git clone https://github.com/kurotorakun/VOMDITE.git /home/project/
+# printf "${YELLOW}[ $(date -Iseconds) ] [VOMDITE] Downloading VOMDITE... ${NC}\n"
+# sudo docker exec -ti $VOMDITE_CONTAINER git clone https://github.com/kurotorakun/VOMDITE.git /home/project/
 
 # .- Generate ssh keys on ./VOMDITE/terraform-files/ssh_keys/
-printf "${YELLOW}[ $(date -Iseconds) ] [VOMDITE] Generating internal Ansible Service SSH key pair... ${NC}\n"
-sudo docker exec -ti $VOMDITE_CONTAINER mkdir /home/project/terraform-files/ssh_keys
-sudo docker exec -ti $VOMDITE_CONTAINER ssh-keygen -f /home/project/terraform-files/ssh_keys/ansible_id_rsa
+# printf "${YELLOW}[ $(date -Iseconds) ] [VOMDITE] Generating internal Ansible Service SSH key pair... ${NC}\n"
+# sudo docker exec -ti $VOMDITE_CONTAINER mkdir /home/project/terraform-files/ssh_keys
+# sudo docker exec -ti $VOMDITE_CONTAINER ssh-keygen -f /home/project/terraform-files/ssh_keys/ansible_id_rsa
 
 # .- Install OVFTool
 printf "${YELLOW}[ $(date -Iseconds) ] [VOMDITE] Installing OVFTool on workspace... ${NC}\n"
 sudo docker exec -ti -u root $VOMDITE_CONTAINER /home/project/addittional_software/VMware-ovftool-4.4.1-16812187-lin.x86_64.bundle --eulas-agreed
 
 # [ TERRAFORM EXECUTION ]
-printf "${YELLOW}[ $(date -Iseconds) ] [VOMDITE] Initialazing Terraform service... ${NC}\n"
-sudo docker exec -ti $VOMDITE_CONTAINER terraform -chdir=/home/project/terraform-files init
+# printf "${YELLOW}[ $(date -Iseconds) ] [VOMDITE] Initialazing Terraform service... ${NC}\n"
+# sudo docker exec -ti $VOMDITE_CONTAINER terraform -chdir=/home/project/terraform-files init
 
 # ~ DEBUG ~
 # printf "${YELLOW}[ $(date -Iseconds) ] [VOMDITE] Planning Terraform process... ${NC}\n"
 # sudo docker exec -ti $VOMDITE_CONTAINER terraform -chdir=/home/project/terraform-files plan
 
-printf "${YELLOW}[ $(date -Iseconds) ] [VOMDITE] Starting terraforming... ${NC}\n"
-sudo docker exec -ti $VOMDITE_CONTAINER terraform -chdir=/home/project/terraform-files apply
+# printf "${YELLOW}[ $(date -Iseconds) ] [VOMDITE] Starting terraforming... ${NC}\n"
+# sudo docker exec -ti $VOMDITE_CONTAINER terraform -chdir=/home/project/terraform-files apply
 
-printf "${YELLOW}[ $(date -Iseconds) ] [VOMDITE] Terraforming process completed. Review any error output. ${NC}\n"
-printf "                              Access workspace through http://localhost:8022/ to review any error.\n"
+# printf "${YELLOW}[ $(date -Iseconds) ] [VOMDITE] Terraforming process completed. Review any error output. ${NC}\n"
+# printf "                              Access workspace through http://localhost:8022/ to review any error.\n"
