@@ -69,33 +69,27 @@ sudo docker start $VOMDITE_CONTAINER
 printf "${YELLOW}[ $(date -Iseconds) ] [VOMDITE] Waiting container to be loaded... ${NC}\n"
 sleep 30
 
-# .- Generate ssh keys on VOMDITE container ~/.ssh/
-# printf "${YELLOW}[ $(date -Iseconds) ] [VOMDITE] Generating workspace SSH key pair... ${NC}\n"
-# sudo docker exec -ti $VOMDITE_CONTAINER ssh-keygen
-
 # .- Clone VOMDITE repository
-# printf "${YELLOW}[ $(date -Iseconds) ] [VOMDITE] Downloading VOMDITE... ${NC}\n"
-# sudo docker exec -ti $VOMDITE_CONTAINER git clone https://github.com/kurotorakun/VOMDITE.git /home/project/
-
-# .- Generate ssh keys on ./VOMDITE/terraform-files/ssh_keys/
-# printf "${YELLOW}[ $(date -Iseconds) ] [VOMDITE] Generating internal Ansible Service SSH key pair... ${NC}\n"
-# sudo docker exec -ti $VOMDITE_CONTAINER mkdir /home/project/terraform-files/ssh_keys
-# sudo docker exec -ti $VOMDITE_CONTAINER ssh-keygen -f /home/project/terraform-files/ssh_keys/ansible_id_rsa
+printf "${YELLOW}[ $(date -Iseconds) ] [VOMDITE] Downloading VOMDITE... ${NC}\n"
+sudo docker exec -ti $VOMDITE_CONTAINER git clone https://github.com/kurotorakun/VOMDITE.git /home/project/
 
 # .- Install OVFTool
 printf "${YELLOW}[ $(date -Iseconds) ] [VOMDITE] Installing OVFTool on workspace... ${NC}\n"
 sudo docker exec -ti -u root $VOMDITE_CONTAINER /home/project/addittional_software/VMware-ovftool-4.4.1-16812187-lin.x86_64.bundle --eulas-agreed
 
-# [ TERRAFORM EXECUTION ]
-# printf "${YELLOW}[ $(date -Iseconds) ] [VOMDITE] Initialazing Terraform service... ${NC}\n"
-# sudo docker exec -ti $VOMDITE_CONTAINER terraform -chdir=/home/project/terraform-files init
+# [ PROJECT REQUIREMENTS SCRIPT ]
+printf "${YELLOW}[ $(date -Iseconds) ] [VOMDITE] Initialazing Terraform service... ${NC}\n"
+sudo docker exec -ti -u root $VOMDITE_CONTAINER /home/project/deployment_requirements.sh
 
-# ~ DEBUG ~
-# printf "${YELLOW}[ $(date -Iseconds) ] [VOMDITE] Planning Terraform process... ${NC}\n"
-# sudo docker exec -ti $VOMDITE_CONTAINER terraform -chdir=/home/project/terraform-files plan
+# [ PERSONALIZATION ]
+printf "${YELLOW}[ $(date -Iseconds) ] [VOMDITE] Requirements perform ${NC}\n"
+printf "${YELLOW}[ $(date -Iseconds) ] Please, if you require to modify default project settings access to http://$(hostname):8025/ and modify file /home/project/terraform-files/user_parameters.tf ${NC}\n"
+read -n 1 -s -r -p "Once done, press any key to continue"
 
-# printf "${YELLOW}[ $(date -Iseconds) ] [VOMDITE] Starting terraforming... ${NC}\n"
-# sudo docker exec -ti $VOMDITE_CONTAINER terraform -chdir=/home/project/terraform-files apply
+
+# [ START TERRAFORMING ]
+printf "${YELLOW}[ $(date -Iseconds) ] [VOMDITE] Initialazing Terraform service... ${NC}\n"
+sudo docker exec -ti -u root $VOMDITE_CONTAINER /home/project/start_terraforming.sh
 
 # printf "${YELLOW}[ $(date -Iseconds) ] [VOMDITE] Terraforming process completed. Review any error output. ${NC}\n"
-# printf "                              Access workspace through http://localhost:8022/ to review any error.\n"
+# printf "                              Access workspace through http://$(hostname):8022/ to review any error.\n"
