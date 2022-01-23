@@ -51,7 +51,8 @@ printf "${YELLOW}[ $(date -Iseconds) ] [VOMDITE] -- INITIALAZING VOMDITE SERVICE
 
 # 1.- Create workspace-home directory with permissions as 777
 printf "${YELLOW}[ $(date -Iseconds) ] [VOMDITE] Setting up VOMDITE workspace... ${NC}\n"
-mkdir --mode=777 workspace-home
+mkdir workspace-home
+chmod 777 -R ./workspace-home
 
 # 2.- Create docker container
 printf "${YELLOW}[ $(date -Iseconds) ] [VOMDITE] Creating and starting workspace container... ${NC}\n"
